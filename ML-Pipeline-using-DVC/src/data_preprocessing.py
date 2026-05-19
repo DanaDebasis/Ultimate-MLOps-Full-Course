@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 import os
-
+import string
 import re
 import nltk
 import string
@@ -45,11 +45,15 @@ def lower_case(text):
 
 def removing_punctuations(text):
     ## Remove punctuations
-    text = re.sub('[%s]' % re.escape("""!"#$%&'()*+,،-./:;<=>؟?@[\]^_`{|}~"""), ' ', text)
-    text = text.replace('؛',"", )
+    ##text = re.sub('[%s]' % re.escape("""!"#$%&'()*+,،-./:;<=>؟?@[\]^_`{|}~"""), ' ', text)
+    ##text = text.replace('؛',"", )
+    ##text = re.sub(r'[%s]' % re.escape("""!"#$%&'()*+,،-./:;<=>؟?@[\]^_`{|}~"""), ' ', text)
+    text = re.sub(rf"[{re.escape(string.punctuation)}]", " ", text)
+    text = re.sub(r'\s+', ' ', text)
 
     ## remove extra whitespace
-    text = re.sub('\s+', ' ', text)
+    ##text = re.sub('\s+', ' ', text)
+    text = re.sub(r'\s+', ' ', text)
     text =  " ".join(text.split())
     return text.strip()
 
@@ -77,7 +81,8 @@ test_processed_data = normalize_text(test_data)
 # store the data inside data/processed
 data_path = os.path.join("data","processed")
 
-os.makedirs(data_path)
+##os.makedirs(data_path)
+os.makedirs(data_path, exist_ok=True)
 
 train_processed_data.to_csv(os.path.join(data_path,"train_processed.csv"))
 test_processed_data.to_csv(os.path.join(data_path,"test_processed.csv"))

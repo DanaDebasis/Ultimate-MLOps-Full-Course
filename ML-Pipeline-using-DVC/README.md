@@ -1,12 +1,15 @@
 # Build & Track ML Pipelines with DVC
 
 ## How to run?
+export PATH=/c/ProgramData/anaconda3/Scripts/:$PATH
 
-conda create -n test python=3.11 -y
 
-conda activate test
+conda create -n deb-dvc-test python=3.13 -y
+conda init bash
 
-pip install -r requirements.txt
+conda activate deb-dvc-test
+
+python -m pip install -r requirements.txt
 
 
 ## DVC Commands
